@@ -21,3 +21,15 @@ variable "domain_name" {
   type        = string
   default     = "terraperf.com"
 }
+
+variable "project_name" {
+  description = "Project name for resource naming"
+  type        = string
+  default     = "terraperf-landing"
+}
+
+variable "environment" {
+  description = "Environment (prod, staging, dev)"
+  type        = string
+  default     = "prod"
+}

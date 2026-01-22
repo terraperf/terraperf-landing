@@ -4,6 +4,7 @@ terraform/*.tfstate
 terraform/*.tfstate.backup
 terraform/*.tfplan
 terraform/.terraform.lock.hcl
+terraform/*.zip
 
 # OS
 .DS_Store
