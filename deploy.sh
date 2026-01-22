@@ -45,6 +45,7 @@ aws s3 sync "$SCRIPT_DIR/" "s3://$S3_BUCKET/" \
     --profile "$AWS_PROFILE" \
     --exclude "terraform/*" \
     --exclude ".git/*" \
+    --exclude "api/*" \
     --exclude "deploy.sh" \
     --exclude "README.md" \
     --exclude ".gitignore" \
@@ -65,6 +66,11 @@ aws s3 cp "s3://$S3_BUCKET/styles.css" "s3://$S3_BUCKET/styles.css" \
 aws s3 cp "s3://$S3_BUCKET/favicon.svg" "s3://$S3_BUCKET/favicon.svg" \
     --profile "$AWS_PROFILE" \
     --content-type "image/svg+xml" \
+    --metadata-directive REPLACE
+
+aws s3 cp "s3://$S3_BUCKET/privacy.html" "s3://$S3_BUCKET/privacy.html" \
+    --profile "$AWS_PROFILE" \
+    --content-type "text/html" \
     --metadata-directive REPLACE
 
 # Invalidate CloudFront cache
