@@ -203,6 +203,254 @@ body {
     line-height: 1.5;
 }
 
+/* Waitlist Section */
+.waitlist-section {
+    margin: var(--spacing-2xl) 0;
+    padding: var(--spacing-xl);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    max-width: 500px;
+    width: 100%;
+}
+
+.waitlist-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--foreground);
+}
+
+.waitlist-description {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: var(--spacing-lg);
+}
+
+.waitlist-form {
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.email-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--background);
+    color: var(--foreground);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.email-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+}
+
+.email-input::placeholder {
+    color: var(--muted);
+}
+
+.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: white;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.consent-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-custom {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    transition: all 0.2s ease;
+    position: relative;
+    margin-top: 2px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-label input[type="checkbox"]:focus + .checkbox-custom {
+    box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+}
+
+.checkbox-text a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+.form-message {
+    padding: var(--spacing-sm);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+.form-message.success {
+    background: rgba(20, 184, 166, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(20, 184, 166, 0.3);
+}
+
+.form-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Legal Content (Privacy Policy) */
+.legal-content {
+    flex: 1;
+    padding: var(--spacing-lg) 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.legal-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--foreground);
+}
+
+.legal-content .last-updated {
+    font-size: 0.875rem;
+    color: var(--muted);
+    margin-bottom: var(--spacing-xl);
+}
+
+.legal-content section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.legal-content h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    color: var(--foreground);
+}
+
+.legal-content p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.legal-content ul {
+    margin-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--muted);
+}
+
+.legal-content li {
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.7;
+}
+
+.legal-content address {
+    font-style: normal;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.legal-content a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.legal-content a:hover {
+    text-decoration: underline;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Footer */
 .footer {
     padding: var(--spacing-xl) 0 var(--spacing-lg);
@@ -212,6 +460,16 @@ body {
 .footer p {
     font-size: 0.875rem;
     color: var(--muted);
+    margin-bottom: var(--spacing-xs);
+}
+
+.footer a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive */
@@ -230,6 +488,22 @@ body {
 
     .features {
         grid-template-columns: 1fr;
+    }
+
+    .waitlist-section {
+        padding: var(--spacing-lg);
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+
+    .legal-content h1 {
+        font-size: 2rem;
     }
 }
 
@@ -250,5 +524,22 @@ body {
 
     .feature {
         background: rgba(30, 41, 59, 0.5);
+    }
+
+    .waitlist-section {
+        background: rgba(30, 41, 59, 0.5);
+    }
+
+    .email-input {
+        background: rgba(15, 23, 42, 0.8);
+    }
+
+    .checkbox-custom {
+        background: rgba(15, 23, 42, 0.8);
+    }
+
+    .form-message.error {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
     }
 }

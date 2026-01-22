@@ -17,3 +17,12 @@ Thumbs.db
 
 # Logs
 *.log
+
+# API data (local testing)
+api/data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -58,6 +58,46 @@
                 cloud infrastructure.
             </p>
 
+            <!-- Waiting List Form -->
+            <div class="waitlist-section">
+                <h2 class="waitlist-title">Join the Waiting List</h2>
+                <p class="waitlist-description">Be the first to know when TerraPerf launches.</p>
+
+                <form id="waitlist-form" class="waitlist-form">
+                    <div class="form-group">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            required
+                            class="email-input"
+                        >
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span class="btn-text">Join Waitlist</span>
+                            <span class="btn-loading" style="display: none;">
+                                <svg class="spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="consent-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">
+                                I agree to receive marketing communications from TerraPerf and Sofrasorb.
+                                I have read and accept the <a href="/privacy.html" target="_blank">Privacy Policy</a>.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div id="form-message" class="form-message" style="display: none;"></div>
+                </form>
+            </div>
+
             <!-- Features -->
             <div class="features">
                 <div class="feature">
@@ -95,11 +135,89 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>&copy; 2026 TerraPerf. All rights reserved.</p>
+            <p>&copy; 2026 TerraPerf by <a href="https://www.societe.com/societe/sofrasorb-942184631.html" target="_blank" rel="noopener">Sofrasorb</a>. All rights reserved.</p>
+            <p><a href="/privacy.html">Privacy Policy</a></p>
         </footer>
     </div>
 
     <!-- Background decoration -->
     <div class="bg-gradient"></div>
+
+    <!-- Waitlist Form Script -->
+    <script>
+        (function() {
+            const form = document.getElementById('waitlist-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnLoading = submitBtn.querySelector('.btn-loading');
+            const messageDiv = document.getElementById('form-message');
+
+            // API endpoint - will be replaced with actual endpoint after deployment
+            const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:8001/waitlist'
+                : 'https://api.terraperf.com/waitlist';
+
+            function showMessage(message, isError = false) {
+                messageDiv.textContent = message;
+                messageDiv.className = 'form-message ' + (isError ? 'error' : 'success');
+                messageDiv.style.display = 'block';
+            }
+
+            function setLoading(loading) {
+                submitBtn.disabled = loading;
+                btnText.style.display = loading ? 'none' : 'inline';
+                btnLoading.style.display = loading ? 'inline-flex' : 'none';
+            }
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const email = document.getElementById('email').value.trim();
+                const consent = document.getElementById('consent').checked;
+
+                if (!email) {
+                    showMessage('Please enter your email address.', true);
+                    return;
+                }
+
+                if (!consent) {
+                    showMessage('Please accept the privacy policy to continue.', true);
+                    return;
+                }
+
+                setLoading(true);
+                messageDiv.style.display = 'none';
+
+                try {
+                    const response = await fetch(API_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            consent: consent,
+                            consent_timestamp: new Date().toISOString(),
+                            source: 'landing_page'
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        showMessage('Thank you! You\'ve been added to our waiting list.', false);
+                        form.reset();
+                    } else {
+                        showMessage(data.detail || 'Something went wrong. Please try again.', true);
+                    }
+                } catch (error) {
+                    console.error('Waitlist error:', error);
+                    showMessage('Unable to connect. Please try again later.', true);
+                } finally {
+                    setLoading(false);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
