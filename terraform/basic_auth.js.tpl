@@ -50,7 +50,7 @@ function unauthorized() {
         headers: {
             'www-authenticate': [{
                 key: 'WWW-Authenticate',
-                value: `Basic realm="${REALM}"`
+                value: `Basic realm="$${REALM}"`
             }],
             'content-type': [{
                 key: 'Content-Type',
