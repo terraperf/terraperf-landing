@@ -33,3 +33,23 @@ variable "environment" {
   type        = string
   default     = "prod"
 }
+
+variable "basic_auth_enabled" {
+  description = "Enable Basic HTTP Authentication on CloudFront"
+  type        = bool
+  default     = true
+}
+
+variable "basic_auth_username" {
+  description = "Username for Basic HTTP Authentication"
+  type        = string
+  default     = "terraperf"
+  sensitive   = true
+}
+
+variable "basic_auth_password" {
+  description = "Password for Basic HTTP Authentication"
+  type        = string
+  default     = "preview2025"
+  sensitive   = true
+}

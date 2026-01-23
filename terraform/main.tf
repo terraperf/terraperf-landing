@@ -6,6 +6,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.0"
+    }
   }
 
   backend "s3" {
@@ -202,6 +210,16 @@ resource "aws_cloudfront_distribution" "landing" {
     min_ttl     = 0
     default_ttl = 3600
     max_ttl     = 86400
+
+    # Lambda@Edge function for Basic Authentication (conditional)
+    dynamic "lambda_function_association" {
+      for_each = var.basic_auth_enabled ? [1] : []
+      content {
+        event_type   = "viewer-request"
+        lambda_arn   = aws_lambda_function.basic_auth[0].qualified_arn
+        include_body = false
+      }
+    }
   }
 
   # Custom error response for SPA routing
